@@ -1,0 +1,38 @@
+.city-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+
+  .search-bar {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .city-list-container {
+    button {
+      float: inline-end;
+    }
+  }
+
+  .city {
+    background-color: rgb(142, 123, 101);
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+    .city-header {
+      display: flex;
+      justify-content: space-between;
+      margin-block-end: 1rem;
+
+      img {
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+      }
+    }
+  }
+}
