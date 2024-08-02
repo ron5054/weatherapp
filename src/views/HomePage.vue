@@ -1,5 +1,6 @@
 <template>
   <main>
+    <h1>HomePage</h1>
     <!-- <section class="search-bar">
       <input type="text" placeholder="Enter city" />
       <button>Search</button>
@@ -24,11 +25,11 @@ export default {
     const lat = userLocation.coords.latitude
     const lon = userLocation.coords.longitude
 
-    if (lat && lon) {
-      const { locationKey, city, country } =
-        await weatherService.getLocationData(lat, lon)
-      this.$router.push(`/${locationKey}/${city}/${country}`)
-    }
+    // if (lat && lon) {
+    //   const { locationKey, city, country } =
+    //     await weatherService.getLocationData(lat, lon)
+    //   this.$router.push(`/${locationKey}/${city}/${country}`)
+    // }
   },
 }
 </script>

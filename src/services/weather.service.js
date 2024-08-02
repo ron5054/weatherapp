@@ -10,7 +10,7 @@ const API_KEY = import.meta.env.VITE_API_KEY
 
 async function searchCity(searchTerm) {
   try {
-    const url = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${searchTerm}`
+    const url = `https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${searchTerm}`
     const res = await fetch(url)
     if (!res.ok) throw new Error('Failed to fetch location key')
 
@@ -23,7 +23,7 @@ async function searchCity(searchTerm) {
 
 async function getLocationData(lat, lon) {
   try {
-    const url = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${lon}`
+    const url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${lon}`
     const res = await fetch(url)
     if (!res.ok) throw new Error('Failed to fetch location key')
 
@@ -56,7 +56,7 @@ function _saveWeatherToCache(locationWeather) {
 }
 
 async function fetchWeatherFromApi(locationKey) {
-  const forecastUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}&metric=true`
+  const forecastUrl = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}&metric=true`
   const res = await fetch(forecastUrl)
   if (!res.ok) throw new Error('Failed to fetch weather forecast')
   return res.json()
