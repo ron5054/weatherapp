@@ -1,7 +1,7 @@
 <template>
   <section
     class="city-details"
-    :style="{ backgroundColor: isDarkMode ? '#6d6363' : '#fff' }"
+    :style="{ backgroundColor: isDarkMode ? '#6d6363' : 'aliceblue' }"
   >
     <section class="search-bar">
       <input
@@ -114,10 +114,11 @@ export default {
         this.dates = await weatherService.getWeatherForcast(this.locationKey)
       } catch (error) {
         console.error('Error fetching weather data:', error)
-        this.showMessage({
-          text: 'Failed to fetch weather data',
-          type: 'error',
-        })
+        this.$store.commit(
+          'setMessage',
+          { text: 'Error fetching weather data' },
+          'error'
+        )
       }
     },
     toggleFavorites(locationKey, city, country) {
@@ -139,15 +140,12 @@ export default {
         this.cities = await weatherService.searchCity(this.searchTerm)
       } catch (error) {
         console.error('Error fetching weather data:', error)
-        this.showMessage({
-          text: 'Failed to fetch weather data',
-          type: 'error',
-        })
+        this.$store.commit(
+          'setMessage',
+          { text: 'Error fetching weather data' },
+          'error'
+        )
       }
-    },
-    showMessage({ text, type = '' }) {
-      this.message = { text, type }
-      setTimeout(() => (this.message = null), 2500)
     },
   },
   watch: {
@@ -157,8 +155,8 @@ export default {
     },
     searchTerm(newVal) {
       if (!/^[\x00-\x7F]*$/.test(newVal)) {
-        this.showMessage({
-          text: 'Please type in English only',
+        this.$store.commit('setMessage', {
+          text: 'please type in english only',
           type: 'error',
         })
         this.searchTerm = ''

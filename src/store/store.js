@@ -4,6 +4,7 @@ export const store = new Vuex.Store({
   state: {
     isFarenheit: false,
     isDarkMode: true,
+    message: null,
   },
   getters: {
     isFarenheit({ isFarenheit }) {
@@ -12,6 +13,9 @@ export const store = new Vuex.Store({
     isDarkMode({ isDarkMode }) {
       return isDarkMode
     },
+    message({ message }) {
+      return message
+    },
   },
   mutations: {
     setTemperatureUnit(state, isFarenheit) {
@@ -19,6 +23,9 @@ export const store = new Vuex.Store({
     },
     setDarkMode(state, isDarkMode) {
       state.isDarkMode = isDarkMode
+    },
+    setMessage(state, message) {
+      state.message = message
     },
   },
 })

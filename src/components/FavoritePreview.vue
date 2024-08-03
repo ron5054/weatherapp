@@ -30,11 +30,10 @@ export default {
       return this.$store.getters.isFarenheit
     },
     weatherIcon() {
-      const weatherText = this.favorite.weatherData[0].WeatherText
-      if (weatherText.includes('Clear')) return '/weatherapp/day.svg'
+      const weatherText = this.favorite.weatherData[0].WeatherText.toLowerCase()
+      if (weatherText.includes('clear') || weatherText.includes('sunny'))
+        return '/weatherapp/day.svg'
       if (weatherText.includes('cloudy')) return '/weatherapp/cloudy.svg'
-      if (weatherText.includes('Partly sunny'))
-        return '/weatherapp/cloudy-day-1.svg'
       if (weatherText.includes('rain')) return '/weatherapp/rainy-1.svg'
       if (weatherText.includes('snow')) return '/weatherapp/snowy-1.svg'
       if (weatherText.includes('thunder')) return '/weatherapp/thunder.svg'
@@ -46,10 +45,6 @@ export default {
         `/${this.favorite.locationKey}/${this.favorite.city}/${this.favorite.country}`
       )
     },
-  },
-  created() {
-    if (this.favorite.weatherData[0].WeatherText)
-      console.log(this.favorite.weatherData[0].WeatherText)
   },
 }
 </script>

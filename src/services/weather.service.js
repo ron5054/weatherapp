@@ -75,8 +75,6 @@ async function getWeatherForcast(locationKey) {
 
   if (cachedWeather && !isStale) return cachedWeather.DailyForecasts
 
-  console.log('Fetching new weather data from API for:', locationKey)
-
   try {
     const { DailyForecasts } = await fetchWeatherFromApi(locationKey)
 
