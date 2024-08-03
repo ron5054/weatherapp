@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       isFahrenheit: null,
-      isDarkMode: null,
+      isDarkMode: true,
     }
   },
   created() {
@@ -51,13 +51,6 @@ export default {
       const temperatureUnit = localStorage.getItem('temperatureUnit')
       this.isFahrenheit = temperatureUnit === 'f'
       this.$store.commit('setTemperatureUnit', this.isFahrenheit)
-    },
-    setUserTemperatureUnit() {
-      const temperatureUnit = localStorage.getItem('temperatureUnit')
-      if (temperatureUnit) {
-        this.isFahrenheit = temperatureUnit === 'f'
-        this.$store.commit('setTemperatureUnit', temperatureUnit === 'f')
-      }
     },
     setUserDarkMode() {
       const isDarkMode = localStorage.getItem('isDarkMode')

@@ -157,7 +157,10 @@ export default {
     },
     searchTerm(newVal) {
       if (!/^[\x00-\x7F]*$/.test(newVal)) {
-        alert('Please type in English only.')
+        this.showMessage({
+          text: 'Please type in English only',
+          type: 'error',
+        })
         this.searchTerm = ''
       }
     },

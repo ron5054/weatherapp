@@ -57,19 +57,26 @@ function _saveWeatherToCache(locationWeather) {
 }
 
 async function fetchWeatherFromApi(locationKey) {
-  const forecastUrl = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}&metric=true`
-  const res = await fetch(forecastUrl)
-  if (!res.ok) throw new Error('Failed to fetch weather forecast')
-  return res.json()
+  try {
+    const forecastUrl = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}&metric=true`
+    const res = await fetch(forecastUrl)
+    if (!res.ok) throw new Error('Failed to fetch weather forecast')
+    const weather = await res.json()
+    return weather
+  } catch (error) {
+    console.error('Error fetching weather data:', error)
+    throw error
+  }
 }
 
 async function getWeatherForcast(locationKey) {
   const cachedWeather = _getWeatherFromCache(locationKey)
-  // const isStale = Date.now() - cachedWeather.timestamp > 3600000
+  const isStale = Date.now() - cachedWeather.timestamp > 3600000
 
-  if (cachedWeather) return cachedWeather.DailyForecasts
+  if (cachedWeather && !isStale) return cachedWeather.DailyForecasts
 
   console.log('Fetching new weather data from API for:', locationKey)
+
   try {
     const { DailyForecasts } = await fetchWeatherFromApi(locationKey)
 
