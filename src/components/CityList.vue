@@ -15,8 +15,5 @@ export default {
   components: {
     CityPreview,
   },
-  created() {
-    console.log(this.cities)
-  },
 }
 </script>

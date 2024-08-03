@@ -1,11 +1,6 @@
 <template>
   <section class="date-list">
-    <DatePreview
-      v-for="(date, idx) in dates"
-      :key="idx"
-      :date="date"
-      :unit="unit"
-    />
+    <DatePreview v-for="(date, idx) in dates" :key="idx" :date="date" />
   </section>
 </template>
 
@@ -18,7 +13,6 @@ export default {
   props: {
     dates: Array,
     required: true,
-    unit: String,
   },
 }
 </script>

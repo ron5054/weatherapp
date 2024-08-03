@@ -4,7 +4,6 @@
       v-for="favorite in favorites"
       :key="favorite.Key"
       :favorite="favorite"
-      :unit="unit"
     />
   </section>
 </template>
@@ -17,10 +16,6 @@ export default {
   props: {
     favorites: {
       type: Array,
-      required: true,
-    },
-    unit: {
-      type: String,
       required: true,
     },
   },

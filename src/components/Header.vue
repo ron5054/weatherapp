@@ -22,20 +22,21 @@ export default {
   name: 'Header',
   data() {
     return {
-      isFahrenheit: false,
+      isFahrenheit: null,
     }
   },
   created() {
     const temperatureUnit = localStorage.getItem('temperatureUnit')
     if (temperatureUnit) {
       this.isFahrenheit = temperatureUnit === 'f'
+      this.$store.commit('setTemperatureUnit', temperatureUnit === 'f')
     }
   },
   methods: {
     toggleTemperature() {
+      this.$store.commit('setTemperatureUnit', this.isFahrenheit)
       const currentValue = this.isFahrenheit ? 'f' : 'c'
       localStorage.setItem('temperatureUnit', currentValue)
-      this.$emit('temperatureUnitChanged', currentValue)
     },
   },
 }

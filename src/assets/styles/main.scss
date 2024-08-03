@@ -1,9 +1,9 @@
 //BASICS
 @import './basics/base';
+@import './basics/animations';
 
 //COMPONENTS
 @import './cmps/Header';
-@import './cmps/HomePage';
 @import './cmps/WeatherIndex';
 @import './cmps/Footer';
 @import './cmps/DateList';

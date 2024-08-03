@@ -1,6 +1,6 @@
 <template>
   <section class="favorites">
-    <FavoviteList v-if="favorites" :favorites="favorites" :unit="unit" />
+    <FavoviteList v-if="favorites" :favorites="favorites" />
   </section>
 </template>
 
@@ -10,9 +10,6 @@ import FavoviteList from '../components/FavoviteList.vue'
 
 export default {
   name: 'Favorites',
-  props: {
-    unit: String,
-  },
   data() {
     return {
       favorites: null,
