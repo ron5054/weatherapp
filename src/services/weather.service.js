@@ -71,9 +71,11 @@ async function fetchWeatherFromApi(locationKey) {
 
 async function getWeatherForcast(locationKey) {
   const cachedWeather = _getWeatherFromCache(locationKey)
-  const isStale = Date.now() - cachedWeather.timestamp > 3600000
 
-  if (cachedWeather && !isStale) return cachedWeather.DailyForecasts
+  if (cachedWeather) {
+    const isStale = Date.now() - cachedWeather.timestamp > 3600000 // 1 hour
+    if (cachedWeather && !isStale) return cachedWeather.DailyForecasts
+  }
 
   try {
     const { DailyForecasts } = await fetchWeatherFromApi(locationKey)
