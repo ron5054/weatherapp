@@ -17,9 +17,9 @@ export default {
     },
   },
   mounted() {
-    this.$refs.messageModal.showModal()
+    this.$refs.messageModal?.showModal()
     setTimeout(() => {
-      this.$refs.messageModal.close()
+      this.$refs.messageModal?.close()
     }, 2500)
   },
 }
