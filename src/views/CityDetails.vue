@@ -1,5 +1,8 @@
 <template>
-  <section class="city-details">
+  <section
+    class="city-details"
+    :style="{ backgroundColor: isDarkMode ? '#6d6363' : '#fff' }"
+  >
     <section class="search-bar">
       <input
         type="text"
@@ -7,7 +10,7 @@
         v-model="searchTerm"
         ref="searchInput"
       />
-      <button @click="searchCity">Search</button>
+      <button @click="searchCity" :disabled="!searchTerm">Search</button>
     </section>
 
     <section class="city-list-container" v-if="cities">
@@ -34,18 +37,21 @@
       <DateList v-if="dates?.length" :dates="dates" />
     </section>
   </section>
+  <Message-Modal :message="message" v-if="message" />
 </template>
 
 <script>
 import { weatherService } from '../services/weather.service'
 import DateList from '../components/DateList.vue'
 import CityList from '../components/CityList.vue'
+import MessageModal from '../components/MessageModal.vue'
 
 export default {
   name: 'CityDetails',
   components: {
     DateList,
     CityList,
+    MessageModal,
   },
   data() {
     return {
@@ -53,6 +59,7 @@ export default {
       favorites: JSON.parse(localStorage.getItem('favorites')) || [],
       searchTerm: '',
       cities: null,
+      message: null,
     }
   },
   computed: {
@@ -65,13 +72,13 @@ export default {
     country() {
       return this.$route.params.country
     },
-    buttonColor() {
-      return this.isFavorite ? 'red' : 'green'
-    },
     isFavorite() {
       return this.favorites.some(
         (favorite) => favorite.locationKey === this.locationKey
       )
+    },
+    isDarkMode() {
+      return this.$store.getters.isDarkMode
     },
   },
   async created() {
@@ -107,6 +114,10 @@ export default {
         this.dates = await weatherService.getWeatherForcast(this.locationKey)
       } catch (error) {
         console.error('Error fetching weather data:', error)
+        this.showMessage({
+          text: 'Failed to fetch weather data',
+          type: 'error',
+        })
       }
     },
     toggleFavorites(locationKey, city, country) {
@@ -128,13 +139,27 @@ export default {
         this.cities = await weatherService.searchCity(this.searchTerm)
       } catch (error) {
         console.error('Error fetching weather data:', error)
+        this.showMessage({
+          text: 'Failed to fetch weather data',
+          type: 'error',
+        })
       }
+    },
+    showMessage({ text, type = '' }) {
+      this.message = { text, type }
+      setTimeout(() => (this.message = null), 2500)
     },
   },
   watch: {
     locationKey() {
       if (!this.locationKey) this.goToUserLocation()
       this.loadWeather()
+    },
+    searchTerm(newVal) {
+      if (!/^[\x00-\x7F]*$/.test(newVal)) {
+        alert('Please type in English only.')
+        this.searchTerm = ''
+      }
     },
   },
 }

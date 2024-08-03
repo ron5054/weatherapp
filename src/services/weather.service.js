@@ -18,6 +18,7 @@ async function searchCity(searchTerm) {
     return cities
   } catch (error) {
     console.error('Error fetching location key:', error)
+    throw error
   }
 }
 
@@ -36,7 +37,7 @@ async function getLocationData(lat, lon) {
     }
   } catch (error) {
     console.error('Error fetching location key:', error)
-    return null
+    throw error
   }
 }
 
@@ -64,6 +65,8 @@ async function fetchWeatherFromApi(locationKey) {
 
 async function getWeatherForcast(locationKey) {
   const cachedWeather = _getWeatherFromCache(locationKey)
+  // const isStale = Date.now() - cachedWeather.timestamp > 3600000
+
   if (cachedWeather) return cachedWeather.DailyForecasts
 
   console.log('Fetching new weather data from API for:', locationKey)
@@ -80,22 +83,31 @@ async function getWeatherForcast(locationKey) {
     return DailyForecasts
   } catch (error) {
     console.error('Error fetching weather data:', error)
-    return null
+    throw error
   }
 }
 
 async function getCurrWeather(locationKey) {
-  const url = `https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${API_KEY}&language=en&details=true`
+  try {
+    const url = `https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${API_KEY}&language=en&details=true`
+    const res = await fetch(url)
+    if (!res.ok) throw new Error('Failed to fetch current weather')
 
-  const res = await fetch(url)
-  if (!res.ok) throw new Error('Failed to fetch current weather')
-
-  const weather = await res.json()
-  return weather
+    const weather = await res.json()
+    return weather
+  } catch (error) {
+    console.error('Error fetching weather data:', error)
+    throw error
+  }
 }
 
 async function getUserLocation() {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject)
-  })
+  try {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
+  } catch (error) {
+    console.error('Error getting user location:', error)
+    throw error
+  }
 }

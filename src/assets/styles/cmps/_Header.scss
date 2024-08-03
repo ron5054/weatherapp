@@ -2,68 +2,83 @@ header {
   background-color: #ce3535;
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  justify-content: space-between;
+  padding-block: 0.5rem;
 
-  a {
-    color: white;
-    padding: 1rem;
-    text-decoration: none;
+  nav {
+    a {
+      color: white;
+      padding: 1rem;
+      text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
+      @media screen and (max-width: 768px) {
+        padding: 0.3rem;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
-}
 
-.temperature-toggle {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  color: white;
+  .toggles {
+    display: flex;
+    align-items: center;
 
-  span {
-    margin: 0 0.5rem;
+    .temperature-toggle {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      color: white;
+
+      span {
+        margin: 0 0.5rem;
+        @media screen and (max-width: 768px) {
+          margin: 0 0.2rem;
+        }
+      }
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 1.5rem;
+      background-color: #ccc;
+      border-radius: 34px;
+      padding: 4px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: '';
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
   }
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 1.5rem;
-  background-color: #ccc;
-  border-radius: 34px;
-  padding: 4px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
 }
