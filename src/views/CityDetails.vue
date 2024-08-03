@@ -18,7 +18,7 @@
       <CityList :cities="cities" />
     </section>
 
-    <section class="city" v-if="city">
+    <section class="city" v-if="city && dates?.length">
       <div class="city-header">
         <h1 v-if="city">{{ city }}, {{ country }}</h1>
         <img
