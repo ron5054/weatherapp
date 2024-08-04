@@ -37,6 +37,11 @@ export default {
         this.favorites = mergedData
       } catch (error) {
         console.error('Error fetching weather data:', error)
+        this.$store.commit(
+          'setMessage',
+          { text: 'Error fetching weather data' },
+          'error'
+        )
       }
     },
   },
