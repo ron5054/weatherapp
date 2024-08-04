@@ -56,11 +56,16 @@ export default {
       if (weatherText.includes('mostly sunny'))
         return '/weatherapp/cloudy-day-2.svg'
       if (weatherText.includes('t-storms')) return '/weatherapp/thunder.svg'
-      if (weatherText.includes('clear') || weatherText.includes('sunny'))
+      if (
+        weatherText.includes('clear') ||
+        weatherText.includes('sunny') ||
+        weatherText.includes('dreary')
+      ) {
         return '/weatherapp/day.svg'
+      }
       if (weatherText.includes('storms') || weatherText.includes('thunder'))
         return '/weatherapp/thunder.svg'
-      if (weatherText.includes('cloudy')) return '/weatherapp/cloudy.svg'
+      if (weatherText.includes('cloud')) return '/weatherapp/cloudy.svg'
       if (weatherText.includes('rain')) return '/weatherapp/rainy-6.svg'
       if (weatherText.includes('snow')) return '/weatherapp/snowy-1.svg'
     },

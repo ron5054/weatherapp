@@ -46,9 +46,13 @@
   }
 
   .city-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
     button {
       all: unset;
-      float: inline-end;
+      align-self: flex-end;
       cursor: pointer;
       transition: scale 0.5s;
       &:hover {
